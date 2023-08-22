@@ -12,5 +12,10 @@
         "psr-4": {
             "Enjoys\\CartesianIterator\\": "src/"
         }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\Enjoys\\CartesianIterator\\": "tests/"
+        }
     }
 }

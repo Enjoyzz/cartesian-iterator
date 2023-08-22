@@ -20,17 +20,17 @@ class CartesianIterator extends \MultipleIterator
         parent::__construct(static::MIT_NEED_ALL | static::MIT_KEYS_ASSOC);
     }
 
-    public function attachIterator(\Iterator $iterator, $infos = null): void
+    public function attachIterator(\Iterator $iterator, $info = null): void
     {
         $this->iterators[] = $iterator;
-        if ($infos === null) {
-            $infos = count($this->iterators) - 1;
+        if ($info === null) {
+            $info = count($this->iterators) - 1;
         }
-        if (isset($this->infosHashMap[$infos])) {
-            throw new \InvalidArgumentException("Iterator with the same key has been already added: {$infos}");
+        if (isset($this->infosHashMap[$info])) {
+            throw new \InvalidArgumentException("Iterator with the same key has been already added: {$info}");
         }
-        $this->infosHashMap[$infos] = spl_object_hash($iterator);
-        parent::attachIterator($iterator, $infos);
+        $this->infosHashMap[$info] = spl_object_hash($iterator);
+        parent::attachIterator($iterator, $info);
     }
 
     public function detachIterator(\Iterator $iterator): void
@@ -50,9 +50,10 @@ class CartesianIterator extends \MultipleIterator
         unset($this->infosHashMap[$infos]);
     }
 
-    public function key(): array
+    #[\ReturnTypeWillChange]
+    public function key(): int
     {
-        return [$this->key];
+        return $this->key;
     }
 
     public function next(): void
