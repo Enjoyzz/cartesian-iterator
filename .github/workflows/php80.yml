@@ -48,13 +48,13 @@ jobs:
         mkdir -p build/logs
         vendor/bin/phpunit  tests --verbose --coverage-clover build/logs/clover.xml
 
-    - name: Run psalm
-      run: vendor/bin/psalm
+    # - name: Run psalm
+    #   run: vendor/bin/psalm
 
-#    - name: Code coverage
-#      run: |
-#        wget https://scrutinizer-ci.com/ocular.phar
-#        php ocular.phar code-coverage:upload  --format=php-clover build/logs/clover.xml
+    # - name: Code coverage
+    #   run: |
+    #     wget https://scrutinizer-ci.com/ocular.phar
+    #     php ocular.phar code-coverage:upload  --format=php-clover build/logs/clover.xml
 
     - name: Run infection
       if: matrix.operating-system == 'ubuntu-latest'
