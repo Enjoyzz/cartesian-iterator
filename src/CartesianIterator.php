@@ -9,28 +9,24 @@ class CartesianIterator extends \MultipleIterator
     /** @var \Iterator[] */
     protected $iterators = [];
 
-    /** @var int */
-    protected $key = 0;
-
     /** @var string[] */
     protected $infosHashMap = [];
 
-    public function __construct()
+    public function __construct($flags = \MultipleIterator::MIT_KEYS_ASSOC | \MultipleIterator::MIT_NEED_ALL)
     {
-        parent::__construct(static::MIT_NEED_ALL | static::MIT_KEYS_ASSOC);
+        parent::__construct();
+        $this->setFlags($flags);
+    }
+
+    public function setFlags(int $flags): void
+    {
+        parent::setFlags($flags | \MultipleIterator::MIT_NEED_ALL);
     }
 
     public function attachIterator(\Iterator $iterator, $info = null): void
     {
         $this->iterators[] = $iterator;
-        if ($info === null) {
-            $info = count($this->iterators) - 1;
-        }
-        if (isset($this->infosHashMap[$info])) {
-            throw new \InvalidArgumentException("Iterator with the same key has been already added: {$info}");
-        }
-        $this->infosHashMap[$info] = spl_object_hash($iterator);
-        parent::attachIterator($iterator, $info);
+        parent::attachIterator($iterator, $info ?? $this->countIterators());
     }
 
     public function detachIterator(\Iterator $iterator): void
@@ -39,33 +35,12 @@ class CartesianIterator extends \MultipleIterator
             return;
         }
         parent::detachIterator($iterator);
-        $iteratorHash = spl_object_hash($iterator);
-        foreach ($this->iterators as $index => $iteratorAttached) {
-            if ($iteratorHash === spl_object_hash($iteratorAttached)) {
-                unset($this->iterators[$index]);
-                break;
-            }
-        }
-        $infos = array_flip($this->infosHashMap)[spl_object_hash($iterator)];
-        unset($this->infosHashMap[$infos]);
     }
 
-    #[\ReturnTypeWillChange]
-    public function key(): int
-    {
-        return $this->key;
-    }
 
     public function next(): void
     {
         $this->applyNext();
-        $this->key += 1;
-    }
-
-    public function rewind(): void
-    {
-        parent::rewind();
-        $this->key = 0;
     }
 
     private function applyNext(int $index = 0): void
