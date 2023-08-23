@@ -21,7 +21,7 @@ class CartesianIteratorTest extends TestCase
         foreach ($input as $item) {
             $cartesianIterator->attachIterator(new \ArrayIterator($item));
         }
-        $this->assertSame($expect, iterator_to_array($cartesianIterator));
+        $this->assertSame($expect, iterator_to_array($cartesianIterator, false));
     }
 
     public static function data(): array
