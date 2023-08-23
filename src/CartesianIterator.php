@@ -7,10 +7,11 @@ namespace Enjoys\CartesianIterator;
 use Iterator;
 use MultipleIterator;
 
-class CartesianIterator extends MultipleIterator
+final class CartesianIterator extends MultipleIterator
 {
     /** @var Iterator[] */
-    protected array $iterators = [];
+    private array $iterators = [];
+    private int $info = 0;
 
     public function __construct($flags = MultipleIterator::MIT_KEYS_ASSOC | MultipleIterator::MIT_NEED_ALL)
     {
@@ -26,7 +27,24 @@ class CartesianIterator extends MultipleIterator
     public function attachIterator(Iterator $iterator, $info = null): void
     {
         $this->iterators[] = $iterator;
-        parent::attachIterator($iterator, $info ?? $this->countIterators());
+        parent::attachIterator($iterator, $info ?? $this->info++);
+    }
+
+    public function detachIterator(Iterator $iterator): void
+    {
+        if (!$this->containsIterator($iterator)) {
+            return;
+        }
+
+        parent::detachIterator($iterator);
+
+        foreach ($this->iterators as $key => $it) {
+            if ($iterator === $it) {
+                unset($this->iterators[$key]);
+                break;
+            }
+        }
+        $this->iterators = array_values($this->iterators);
     }
 
     public function next(int $index = 0): void
