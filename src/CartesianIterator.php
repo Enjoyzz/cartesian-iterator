@@ -10,16 +10,17 @@ use MultipleIterator;
 final class CartesianIterator extends MultipleIterator
 {
     /** @var Iterator[] */
-    private array $iterators = [];
-    private int $info = 0;
+    private $iterators = [];
+
+    /** @var int */
+    private $info = 0;
 
     public function __construct($flags = MultipleIterator::MIT_KEYS_ASSOC | MultipleIterator::MIT_NEED_ALL)
     {
-        parent::__construct();
-        $this->setFlags($flags);
+        parent::__construct($flags  | MultipleIterator::MIT_NEED_ALL);
     }
 
-    public function setFlags(int $flags): void
+    public function setFlags($flags): void
     {
         parent::setFlags($flags | MultipleIterator::MIT_NEED_ALL);
     }
