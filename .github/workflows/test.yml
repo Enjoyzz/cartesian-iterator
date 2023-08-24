@@ -46,17 +46,8 @@ jobs:
           mkdir -p build/logs
           vendor/bin/phpunit  tests --verbose --coverage-clover build/logs/clover.xml
 
-    # - name: Run psalm
-    #   run: vendor/bin/psalm
-
-    # - name: Code coverage
-    #   run: |
-    #     wget https://scrutinizer-ci.com/ocular.phar
-    #     php ocular.phar code-coverage:upload  --format=php-clover build/logs/clover.xml
-
-    # - name: Run infection
-    #   if: matrix.operating-system == 'ubuntu-latest'
-    #   run: |
-    #     ./vendor/bin/infection -j2 --ignore-msi-with-no-mutations --only-covered
-    #   env:
-    #     STRYKER_DASHBOARD_API_KEY: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}
+      - name: Code coverage
+        if: matrix.operating-system == 'ubuntu-latest' && matrix.php-versions == '8.2'
+        run: |
+          wget https://scrutinizer-ci.com/ocular.phar
+          php ocular.phar code-coverage:upload  --format=php-clover build/logs/clover.xml
