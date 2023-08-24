@@ -1,3 +1,6 @@
+[![Tests](https://github.com/Enjoyzz/cartesian-iterator/actions/workflows/test.yml/badge.svg)](https://github.com/Enjoyzz/cartesian-iterator/actions/workflows/test.yml)
+[![Mutation testing badge](https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2FEnjoyzz%2Fcartesian-iterator%2Fmaster)](https://dashboard.stryker-mutator.io/reports/github.com/Enjoyzz/cartesian-iterator/master)
+
 # Cartesian Iterator
 
 Fork https://github.com/PatchRanger/cartesian-iterator
