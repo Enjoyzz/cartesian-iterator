@@ -39,12 +39,9 @@ final class CartesianIterator extends MultipleIterator
 
         parent::detachIterator($iterator);
 
-        foreach ($this->iterators as $key => $it) {
-            if ($iterator === $it) {
-                unset($this->iterators[$key]);
-                break;
-            }
-        }
+        $key = array_search($iterator, $this->iterators, true);
+        unset($this->iterators[$key]);
+
         $this->iterators = array_values($this->iterators);
     }
 
