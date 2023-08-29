@@ -15,16 +15,30 @@ final class CartesianIterator extends MultipleIterator
     /** @var int */
     private $info = 0;
 
-    public function __construct($flags = MultipleIterator::MIT_KEYS_ASSOC | MultipleIterator::MIT_NEED_ALL)
+    /**
+     * @param int $flags
+     * @psalm-suppress ArgumentTypeCoercion
+     */
+    public function __construct($flags = MultipleIterator::MIT_KEYS_ASSOC)
     {
         parent::__construct($flags  | MultipleIterator::MIT_NEED_ALL);
     }
 
+    /**
+     * @param int $flags
+     * @return void
+     * @psalm-suppress ArgumentTypeCoercion
+     */
     public function setFlags($flags): void
     {
         parent::setFlags($flags | MultipleIterator::MIT_NEED_ALL);
     }
 
+    /**
+     * @param Iterator $iterator
+     * @param int|null|string $info
+     * @return void
+     */
     public function attachIterator(Iterator $iterator, $info = null): void
     {
         $this->iterators[] = $iterator;
