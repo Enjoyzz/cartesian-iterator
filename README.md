@@ -2,6 +2,7 @@
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Enjoyzz/cartesian-iterator/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Enjoyzz/cartesian-iterator/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/Enjoyzz/cartesian-iterator/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/Enjoyzz/cartesian-iterator/?branch=master)
 [![Mutation testing badge](https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2FEnjoyzz%2Fcartesian-iterator%2Fmaster)](https://dashboard.stryker-mutator.io/reports/github.com/Enjoyzz/cartesian-iterator/master)
+[![psalm](https://github.com/Enjoyzz/cartesian-iterator/actions/workflows/psalm.yml/badge.svg)](https://github.com/Enjoyzz/cartesian-iterator/actions/workflows/psalm.yml)
 
 # Cartesian Iterator
 
